@@ -1,0 +1,94 @@
+<%# <%= render "shared/second_header" %>
+
+<div class="top-wrapper">
+  <div class="top-left">
+    <div class="top-right">
+      <div class="rank-title">人気カテゴリー</div>
+      <ul class="rank-wrap c-box">
+        <% @category_ranks.each.with_index(1) do |e, i| %>
+          <%= link_to "#" do %>
+            <li class="rank-item">
+              <div class="rank-tag-num"><%= "#{i}: " %></div> 
+              <div class="rank-name"><%= e.name %></div>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <div class="top-center">
+    <div class="top-board">
+      <div class="all-thread c-box">
+        <p class="top-board-title">新着掲示板一覧</p>
+        <ul class="top-thread-list">
+          <% @boards.each do |board| %>
+            <li>
+              <%= link_to board_path(board.id) do %>
+                <div class="thread-title"><%= board.title %></div>
+                <div class="info-line">
+                  <span class="comment-left"><%= time_ago_in_words(board.created_at) + '前' %></span>
+                </div>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+        <%= link_to '掲示板一覧', boards_path, class: "board-link" %>
+      </div>
+      <%= link_to '新規掲示板作成', new_board_path %>
+    </div>
+
+    <div class="top-post">
+      <div class="all-post c-box">
+        <p class="top-board-title">メンバー募集</p>
+        <div class="top-post-wrapper">
+          <% @posts.each do |post| %>
+            <div class="top-post-list">
+              <ul class="top-post-over">
+                <li class="top-post-name"><%= link_to post.user.nickname, user_path(post.user_id) %></li>
+                <li class="comment-left">・<%= time_ago_in_words(post.created_at) + '前' %></li>
+              </ul>
+              <ul class="top-post-bottom">
+                <li class="top-post-content"><%= safe_join(post.message.split("\n"),tag(:br)) %></li>
+              </ul>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <%= link_to '新規作成', new_post_path %>
+    </div>
+  </div>
+
+  <div class="top-right">
+    <% if user_signed_in? %>
+      <div class="show-right">
+        <div class="show-right-top">
+          <div class="recommend-title">おすすめユーザー</div>
+          <%= link_to recommend_user_path(@user.id), class: "recommend-link" do %>
+            <span class="recommend-link-text">もっと見る</span>
+            <div>
+              <%= image_tag 'sharp_keyboard_arrow_right_black_18dp.png', :size => '23x23' %>
+            </div>
+          <% end %>
+        </div>
+        <ul class="recommend-user-wrap c-box">
+          <% @similar_user_limit.each do |e| %>
+            <li class="recommend-user-item">
+              <div class="recommend-user-left">
+                <% if e.image.present? %>
+                  <div class="recommend-user-image"><%= image_tag e.image, class: "recommend-img img-back" %></div>
+                <% else %>
+                  <div class="recommend-user-image"><%= image_tag "test.png", class: "recommend-img" %></div>
+                <% end %>
+              </div>
+              <div class="recommend-user-right">
+                <%= link_to e.nickname, user_path(e.id) %>
+                <p><%= e.profile %></p>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+</div>

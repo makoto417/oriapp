@@ -121,7 +121,10 @@
   <% if user_signed_in? %>
     <div class="show-right">
       <div class="show-right-top">
-        <div class="recommend-title">おすすめユーザー</div>
+        <div class="recommend-title">
+            <p>おすすめユーザー</p>
+            <p><%= link_to 'ユーザー一覧', users_path %></p>
+          </div>
         <%= link_to recommend_user_path(@user.id), class: "recommend-link" do %>
           <span class="recommend-link-text">もっと見る</span>
           <div>

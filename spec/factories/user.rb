@@ -9,7 +9,7 @@ FactoryBot.define do
 
     after(:create) do |user|
       create(:user_console_relation, user: user, console: create(:console))
-      create(:user_category_relation, user: user, console: create(:category))
+      create(:user_category_relation, user: user, category: create(:category))
     end
   end
 end

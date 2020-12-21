@@ -23,6 +23,12 @@ class User < ApplicationRecord
   has_many :followed, through: :followed_relationships
   has_many :followers, through: :follower_relationships
 
+  def self.guest
+    find_or_create_by(nickname: 'ゲスト', email: 'guest@example.com', profile: "ゲストのプロフィール") do |user|
+      user.password = SecureRandom.urlsafe_base64
+    end
+  end
+
   def followed?(other_user)
     followed_relationships.find_by(followed_id: other_user.id)
   end

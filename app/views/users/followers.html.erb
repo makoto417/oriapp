@@ -4,6 +4,7 @@
     <% if user_signed_in? %>
       <p><%= link_to "マイページに戻る", user_path(current_user.id),class:"edit-link" %></p>
     <% end %>
+    <p><%= link_to "ユーザー一覧へ", users_path, class:"edit-link" %></p>
   </div>
   <div class="user-show">
     <div class="show-right-top">

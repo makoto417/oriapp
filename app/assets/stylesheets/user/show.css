@@ -95,6 +95,9 @@
   padding-bottom: 8px;
 }
 
+.following-users {
+  height: 150px;
+}
 
 .following-user-item {
   text-align: center;
